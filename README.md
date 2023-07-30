@@ -1,9 +1,8 @@
 # cocos-virtual-list
 
-cocos虚拟列表 
-core内有2.x版本 和 3.x版本的
-example内有2.4.6版本和3.2.0版本
+cocos virtual list
+Core has version 2.x and 3.x versions
+EXAMPLE has version 2.4.6 and version 3.2.0
 
-demo：遮罩关闭了，方便查看，控制台 有打印修改数据的内容
-demo:http://101.43.9.221/test/virtualList/index.html
-
+DEMO: The mask is closed, which is convenient for viewing. The console has the content of printing and modified data
+demo: http://101.43.9.221/test/virtualist/index.html

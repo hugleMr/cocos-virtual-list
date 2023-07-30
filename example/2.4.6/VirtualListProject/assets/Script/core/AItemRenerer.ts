@@ -1,17 +1,17 @@
 const { ccclass, property } = cc._decorator;
 /**
- * 单项渲染基类 T数据结构
+ * Single rendering base T data structure
  * @author slf
  *  */
 @ccclass
 export default class AItemRenderer<T> extends cc.Component {
-    @property({displayName:"是否添加点击事件"})
-    isClick:boolean = false;
+    @property({ displayName: "Whether to add a click event" })
+    isClick: boolean = false;
 
-    protected callback: Function;       //回调函数
-    protected cbThis: any;              //回调作用域
+    protected callback: Function; //Callback
+    protected cbThis: any; //Return
 
-    private _data: T;//数据结构
+    private _data: T; //data structure
     public get data(): T {
         return this._data;
     }
@@ -20,38 +20,46 @@ export default class AItemRenderer<T> extends cc.Component {
         this.dataChanged();
     }
 
-    /**数据发生变化 子类重写*/
-    protected dataChanged(): void { }
+    /**Data changes subclass rewriting*/
+    protected dataChanged(): void {}
 
-    /**刷新数据 */
+    /**Refresh data */
     public refreshData(): void {
         this.dataChanged();
     }
 
-    /**销毁 */
+    /**destroy */
     public onDestroy(): void {
-        this._data = null;   
+        this._data = null;
     }
 
     /**
-     * 设置点击回调
-     * @param cb 回调函数
-     * @param cbT 回调作用域
+     * Set click to call back
+     * @param cb Callback
+     * @param cbT Return
      */
-     public setTouchCallback(cb?: Function, cbT?: any): void {
+    public setTouchCallback(cb?: Function, cbT?: any): void {
         this.callback = cb;
         this.cbThis = cbT;
         if (this.node) {
             if (this.node.hasEventListener(cc.Node.EventType.TOUCH_END)) {
-                this.node.off(cc.Node.EventType.TOUCH_END, this.onClickCallback, this);
+                this.node.off(
+                    cc.Node.EventType.TOUCH_END,
+                    this.onClickCallback,
+                    this
+                );
             }
-            this.node.on(cc.Node.EventType.TOUCH_END, this.onClickCallback, this);
+            this.node.on(
+                cc.Node.EventType.TOUCH_END,
+                this.onClickCallback,
+                this
+            );
         }
     }
 
     /**
-     * 预制体点击回调 会携带data
-     * @param e 
+     * The prefabricated clicks will carry DATA
+     * @param e
      */
     protected onClickCallback(e: cc.Event): void {
         this.callback && this.callback.call(this.cbThis, this.data);
